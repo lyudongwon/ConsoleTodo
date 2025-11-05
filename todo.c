@@ -20,6 +20,28 @@ void printMenu() {
     printf("메뉴 선택: ");
 }
 
+// 1. 할 일 추가 함수 (새로 추가됨)
+void addTask() {
+    if (taskCount >= 50) {
+        printf("[⚠️ 오류: 할 일 목록이 꽉 찼습니다.]\n");
+        return;
+    }
+
+    printf("\n[1. 할 일 추가]\n");
+    printf("내용을 입력하세요: ");
+
+    // fgets로 공백 포함 문자열 받기 (최대 199자 + NULL 문자)
+    fgets(todoList[taskCount].description, 200, stdin);
+
+    // fgets는 개행문자(\n)도 함께 저장하므로 제거
+    todoList[taskCount].description[strcspn(todoList[taskCount].description, "\n")] = 0;
+
+    todoList[taskCount].isDone = 0; // 미완료 상태로 초기화
+    taskCount++; // 전체 작업 개수 증가
+
+    printf("[✅ 할 일이 성공적으로 추가되었습니다.]\n");
+}
+
 int main(void) {
     int choice = 0;
 
@@ -32,12 +54,11 @@ int main(void) {
 
         switch (choice) {
         case 1:
-            printf("\n[1. 할 일 추가 - 구현 중...]\n");
-            // addTask(); // 다음 커밋에서 구현
+            addTask(); // (수정됨)
             break;
         case 2:
             printf("\n[2. 할 일 목록 보기 - 구현 중...]\n");
-            // viewTasks(); // 다음 커밋에서 구현
+            // viewTasks(); 
             break;
         case 3:
             printf("\n[프로그램을 종료합니다.]\n");
